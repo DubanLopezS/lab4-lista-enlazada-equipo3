@@ -1,3 +1,21 @@
+# tests/test_linked_list.py
+import pytest
+from src.linked_list import LinkedList, Node
+
+
+def test_lista_vacia_str():
+    ll = LinkedList()
+    assert str(ll) == "Lista vacía"
+
+
+def test_lista_vacia_len():
+    ll = LinkedList()
+    assert len(ll) == 0
+
+
+def test_node_repr():
+    n = Node(42)
+    assert repr(n) == "Node(42)"
 # ------------------------------------------------------------------ #
 # Pruebas Equipo B — delete                                           #
 # ------------------------------------------------------------------ #
@@ -28,6 +46,38 @@ def test_delete_lista_vacia():
     ll = LinkedList()
     assert ll.delete(1) is False
 
+
+# ------------------------------------------------------------------ #
+# Pruebas Equipo C — search                                           #
+# ------------------------------------------------------------------ #
+
+def test_search_elemento_existente():
+    ll = LinkedList()
+    ll.append(10)
+    ll.append(20)
+    nodo = ll.search(10)
+    assert nodo is not None
+    assert nodo.data == 10
+
+
+def test_search_elemento_inexistente():
+    ll = LinkedList()
+    ll.append(5)
+    assert ll.search(99) is None
+
+
+def test_search_lista_vacia():
+    ll = LinkedList()
+    assert ll.search(1) is None
+
+
+def test_search_ultimo_elemento():
+    ll = LinkedList()
+    for v in [1, 2, 3]:
+        ll.append(v)
+    nodo = ll.search(3)
+    assert nodo is not None
+    assert nodo.data == 3
 # ------------------------------------------------------------------ #
 # Pruebas Equipo A — append                                           #
 # ------------------------------------------------------------------ #
