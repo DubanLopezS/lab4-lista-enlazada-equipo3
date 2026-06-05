@@ -1,29 +1,32 @@
-# tests/test_linked_list.py
-# Pruebas base escritas por el docente.
-# CADA EQUIPO agregará sus propias pruebas en este archivo
-# desde su rama — esto generará merge conflicts intencionales.
-
-import pytest
-from src.linked_list import LinkedList, Node
-
-
 # ------------------------------------------------------------------ #
-# Pruebas del docente — __str__ y __len__                             #
+# Pruebas Equipo B — delete                                           #
 # ------------------------------------------------------------------ #
 
-def test_lista_vacia_str():
+def test_delete_elemento_existente():
     ll = LinkedList()
-    assert str(ll) == "Lista vacía"
+    ll.head = Node(1)
+    ll.head.next = Node(2)
+    ll.head.next.next = Node(3)
+    resultado = ll.delete(2)
+    assert resultado is True
+    assert str(ll) == "1 -> 3"
 
-
-def test_lista_vacia_len():
+def test_delete_head():
     ll = LinkedList()
-    assert len(ll) == 0
+    ll.head = Node(10)
+    ll.head.next = Node(20)
+    ll.delete(10)
+    assert ll.head.data == 20
 
+def test_delete_elemento_inexistente():
+    ll = LinkedList()
+    ll.head = Node(5)
+    resultado = ll.delete(99)
+    assert resultado is False
 
-def test_node_repr():
-    n = Node(42)
-    assert repr(n) == "Node(42)"
+def test_delete_lista_vacia():
+    ll = LinkedList()
+    assert ll.delete(1) is False
 
 # ------------------------------------------------------------------ #
 # Pruebas Equipo A — append                                           #
@@ -36,7 +39,6 @@ def test_append_un_elemento():
     assert ll.head.data == 10
     assert len(ll) == 1
 
-
 def test_append_varios_elementos():
     ll = LinkedList()
     ll.append(1)
@@ -44,7 +46,6 @@ def test_append_varios_elementos():
     ll.append(3)
     assert str(ll) == "1 -> 2 -> 3"
     assert len(ll) == 3
-
 
 def test_append_orden_preservado():
     ll = LinkedList()
